@@ -7,12 +7,16 @@ public class ScoreScreen : MonoBehaviour {
 
     [SerializeField] private TextMeshProUGUI modeName;
     [SerializeField] private TextMeshProUGUI wordLength;
+    [SerializeField] private TextMeshProUGUI stage;
     [SerializeField] private TextMeshProUGUI score;
     [SerializeField] private TextMeshProUGUI time;
+
+    [SerializeField] private GameObject stageDisplay;
 
     void Start () {
         SetModeName();
         SetWordLength();
+        SetStage();
         SetScore();
         SetTime();
 	}
@@ -52,6 +56,21 @@ public class ScoreScreen : MonoBehaviour {
         }
 
         wordLength.text = displayString;
+    }
+
+    // Sets stage if not arcade mode
+    private void SetStage()
+    {
+        if(PlayerPrefs.GetString("mode") != "Arcade Mode")
+        {
+            int levelNum = PlayerPrefs.GetInt("LevelPick");
+            stage.text = "Stage " + levelNum.ToString();
+            stageDisplay.SetActive(true);
+        }
+        else
+        {
+            stageDisplay.SetActive(false);
+        }
     }
 
     // Sets score
